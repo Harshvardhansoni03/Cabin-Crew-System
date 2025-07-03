@@ -56,4 +56,10 @@ A fully digital, gate-level lighting control system for aircraft crew cabins usi
 - 🔄 LED = toggling slow in DIMMING mode
 - 🚨 LED = toggling fast in EMERGENCY mode
 - 💤 LED = OFF in IDLE mode
+---
 
+## 📬 Contact
+
+For questions, collaboration, or project inquiries: <br>
+📧 \[[soniharshvardhan14@gmail.com](mailto:soniharshvardhan14@gmail.com)]<br>
+📍 GitHub: [Harshvardhansoni03](https://github.com/Harshvardhansoni03)
