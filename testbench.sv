@@ -1,33 +1,30 @@
-`timescale 1ns/1ps
+module testbench;
+    reg clk;
+    reg [3:0] duty1 = 4'd4, duty2 = 4'd8, duty3 = 4'd12, duty4 = 4'd15;
+    reg [1:0] sel;
+    wire pwm1, pwm2, pwm3, pwm4, led_out;
 
-module tb_led_control;
+    // Clock generator
+    always #5 clk = ~clk;
 
-reg clk;
-reg reset;
-wire [3:0] leds;
+    // Instantiate PWM Generators
+    pwm_generator PWM1(clk, duty1, pwm1);
+    pwm_generator PWM2(clk, duty2, pwm2);
+    pwm_generator PWM3(clk, duty3, pwm3);
+    pwm_generator PWM4(clk, duty4, pwm4);
 
-led_control uut (
-    .clk(clk),
-    .reset(reset),
-    .leds(leds)
-);
+    // Instantiate MUX
+    led_mux MUX(sel, pwm1, pwm2, pwm3, pwm4, led_out);
 
-// Clock generation
-initial begin
-    clk = 0;
-    forever #5 clk = ~clk;
-end
+    initial begin
+        $dumpfile("wave.vcd");
+        $dumpvars(0, testbench);
+        clk = 0;
+        sel = 2'b00;
 
-// Simulation and waveform
-initial begin
-    $dumpfile("dump.vcd");
-    $dumpvars(0, tb_led_control);
-
-    reset = 1;
-    #20;
-    reset = 0;
-    #100;
-    $finish;
-end
-
+        #50 sel = 2'b01;
+        #50 sel = 2'b10;
+        #50 sel = 2'b11;
+        #100 $finish;
+    end
 endmodule
