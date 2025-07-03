@@ -7,7 +7,7 @@ module lighting_fsm (
     output reg led,
     output reg [1:0] current_state,
     output reg [3:0] counter,
-    output reg [7:0] state_name  // For EPWave display
+    output reg [7:0] state_name  
 );
 
     // Define states
@@ -35,18 +35,17 @@ module lighting_fsm (
                 end
                 DIMMING: begin
                     counter <= counter + 1;
-                    led <= counter[3];  // slow blink
+                    led <= counter[3];  
                 end
                 EMERGENCY: begin
                     counter <= counter + 1;
-                    led <= counter[1];  // fast blink
+                    led <= counter[1];  
                 end
                 default: led <= 0;
             endcase
         end
     end
 
-    // Display-friendly state name for waveform
     always @(*) begin
         case (current_state)
             IDLE:      state_name = "ID";
