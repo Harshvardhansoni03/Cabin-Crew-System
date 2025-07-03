@@ -1,5 +1,5 @@
 $date
-	Thu Jul  3 14:11:24 2025
+	Thu Jul  3 15:37:30 2025
 $end
 $version
 	Icarus Verilog
@@ -7,93 +7,164 @@ $end
 $timescale
 	1ps
 $end
-$scope module tb_led_control $end
-$var wire 4 ! leds [3:0] $end
-$var reg 1 " clk $end
-$var reg 1 # reset $end
+$scope module tb_lighting_fsm $end
+$var wire 8 ! state_name [7:0] $end
+$var wire 1 " led $end
+$var wire 2 # current_state [1:0] $end
+$var wire 4 $ counter [3:0] $end
+$var reg 1 % clk $end
+$var reg 2 & mode_select [1:0] $end
+$var reg 1 ' reset $end
 $scope module uut $end
-$var wire 1 " clk $end
-$var wire 1 # reset $end
-$var reg 4 $ leds [3:0] $end
+$var wire 1 % clk $end
+$var wire 2 ( mode_select [1:0] $end
+$var wire 1 ' reset $end
+$var parameter 2 ) DIMMING $end
+$var parameter 2 * EMERGENCY $end
+$var parameter 2 + IDLE $end
+$var parameter 2 , NORMAL $end
+$var reg 4 - counter [3:0] $end
+$var reg 2 . current_state [1:0] $end
+$var reg 1 " led $end
+$var reg 8 / state_name [7:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 $comment Show the parameter values. $end
 $dumpall
+b1 ,
+b0 +
+b11 *
+b10 )
 $end
 #0
 $dumpvars
+b1000100 /
+b0 .
+b0 -
+b0 (
+1'
+b0 &
+0%
 b0 $
-1#
+b0 #
 0"
-b0 !
+b1000100 !
 $end
 #5000
-1"
+1%
 #10000
-0"
+0%
+0'
 #15000
-1"
+1%
 #20000
-0"
-0#
+0%
+b1 &
+b1 (
 #25000
-b1 !
+b1001111 !
+b1001111 /
 b1 $
+b1 -
 1"
+b1 #
+b1 .
+1%
 #30000
-0"
+0%
 #35000
-b10 !
 b10 $
-1"
+b10 -
+1%
 #40000
-0"
+0%
 #45000
-b11 !
 b11 $
-1"
+b11 -
+1%
 #50000
-0"
+0%
 #55000
-b100 !
 b100 $
-1"
+b100 -
+1%
 #60000
-0"
+0%
+b10 &
+b10 (
 #65000
-b101 !
+b1001101 !
+b1001101 /
+0"
 b101 $
-1"
+b101 -
+b10 #
+b10 .
+1%
 #70000
-0"
+0%
 #75000
-b110 !
 b110 $
-1"
+b110 -
+1%
 #80000
-0"
+0%
 #85000
-b111 !
 b111 $
-1"
+b111 -
+1%
 #90000
-0"
+0%
 #95000
-b1000 !
 b1000 $
-1"
+b1000 -
+1%
 #100000
-0"
+0%
+b11 &
+b11 (
 #105000
-b1001 !
 b1001 $
-1"
+b1001 -
+b11 #
+b11 .
+1%
 #110000
-0"
+0%
 #115000
-b1010 !
 b1010 $
-1"
+b1010 -
+1%
 #120000
+0%
+#125000
+1"
+b1011 $
+b1011 -
+1%
+#130000
+0%
+#135000
+b1100 $
+b1100 -
+1%
+#140000
+0%
+b0 &
+b0 (
+#145000
+b1000100 !
+b1000100 /
+b0 $
+b0 -
 0"
+b0 #
+b0 .
+1%
+#150000
+0%
+#155000
+1%
+#160000
+0%

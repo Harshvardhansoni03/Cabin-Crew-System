@@ -1,26 +1,58 @@
-module testbench;
+`timescale 1ns/1ps
+
+module tb_lighting_fsm;
+
     reg clk;
-    reg [3:0] duty1 = 4'd4, duty2 = 4'd8, duty3 = 4'd12, duty4 = 4'd15;
-    reg [1:0] sel;
-    wire pwm1, pwm2, pwm3, pwm4, led_out;
+    reg reset;
+    reg [1:0] mode_select;
+    wire led;
+    wire [1:0] current_state;
+    wire [3:0] counter;
+    wire [7:0] state_name;
 
-    always #5 clk = ~clk;
+    // Instantiate the FSM module
+    lighting_fsm uut (
+        .clk(clk),
+        .reset(reset),
+        .mode_select(mode_select),
+        .led(led),
+        .current_state(current_state),
+        .counter(counter),
+        .state_name(state_name)
+    );
 
-    pwm_generator PWM1(clk, duty1, pwm1);
-    pwm_generator PWM2(clk, duty2, pwm2);
-    pwm_generator PWM3(clk, duty3, pwm3);
-    pwm_generator PWM4(clk, duty4, pwm4);
-    led_mux MUX(sel, pwm1, pwm2, pwm3, pwm4, led_out);
-
+    // Generate clock
     initial begin
-        $dumpfile("wave.vcd");
-        $dumpvars(0, testbench);
         clk = 0;
-        sel = 2'b00;
-
-        #50 sel = 2'b01;
-        #50 sel = 2'b10;
-        #50 sel = 2'b11;
-        #100 $finish;
+        forever #5 clk = ~clk;  // 10ns clock period
     end
+
+    // Stimulus
+    initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars(0, tb_lighting_fsm);
+
+        reset = 1;
+        mode_select = 2'b00;
+        #10 reset = 0;
+
+        // NORMAL mode
+        #10 mode_select = 2'b01;
+        $display("[%0t ns] Entered NORMAL mode", $time/1000);
+
+        // DIMMING mode
+        #40 mode_select = 2'b10;
+        $display("[%0t ns] Entered DIMMING mode", $time/1000);
+
+        // EMERGENCY mode
+        #40 mode_select = 2'b11;
+        $display("[%0t ns] Entered EMERGENCY mode", $time/1000);
+
+        // Back to IDLE
+        #40 mode_select = 2'b00;
+        $display("[%0t ns] Returned to IDLE mode", $time/1000);
+
+        #20 $finish;
+    end
+
 endmodule
