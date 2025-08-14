@@ -44,7 +44,8 @@ A fully digital, gate-level lighting control system for aircraft crew cabins usi
 
 ---
 
-### 🧩 Block Diagram 
+### 🧩 Circuit and Block Diagram 
+![DeWatermark ai_1751571885700](https://github.com/user-attachments/assets/890f3152-0e57-4e25-b66a-c1ef8274ad02)
 ![DeWatermark ai_1751571885700](https://github.com/user-attachments/assets/40d9a2dc-5daa-41a7-9805-ad10b60f4f61)
 
 ---
